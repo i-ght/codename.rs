@@ -13,10 +13,14 @@ fn lines(path: &str) -> std::io::Result<Vec<String>>{
 
 
 fn main() -> std::io::Result<()> {
-    let (adjectives, animals) = (
+    let (adjectives, animals, flowers, colors) = (
         lines("adjectives.txt")?,
-        lines("animals.txt")?
+        lines("animals.txt")?,
+        lines("flowers.txt")?,
+        lines("colors.txt")?
     );
+
+    
 
     let args: Vec<String> = env::args().collect();
     
@@ -34,14 +38,23 @@ fn main() -> std::io::Result<()> {
     let mut rng = rand::thread_rng();
 
     for _ in 0..count {
-        let (i, j) = (
+        let (i, j, k, l) = (
             rng.gen_range(0..adjectives.len()),
-            rng.gen_range(0..animals.len())
+            rng.gen_range(0..animals.len()),
+            rng.gen_range(0..colors.len()),
+            rng.gen_range(0..flowers.len())
+            
         );
     
-        let (adj, animal) = (&adjectives[i], &animals[j]);
-    
-        println!("{}_{}", adj, animal);
+        let (adj, animal, color, flower) = (
+            &adjectives[i],
+            &animals[j],
+            &colors[k],
+            &flowers[l]
+        );
+        
+        println!("{}_{}", adj.to_ascii_lowercase(), animal.to_ascii_lowercase());
+        println!("{}_{}", color.to_ascii_lowercase(), flower.to_ascii_lowercase());
     }
 
     Ok(())
